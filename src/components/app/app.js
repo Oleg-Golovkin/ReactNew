@@ -151,6 +151,33 @@ class App extends Component {
 
     
     render(){
+        const Oleg = (props) => {
+            return(
+                <h2> Общее число {props.counter}</h2>                
+            )
+        }
+    
+        class Wrapper extends Component {
+            state = {
+                counter: 0
+            }
+            plus = () => {
+                this.setState({
+                    counter: this.state.counter + 1
+                })
+            }
+            render(){
+                return (
+                    <div>                        
+                        <h2 onClick={this.plus}>Мама</h2>
+                        {this.props.render(this.state.counter)}                      
+                    </div>
+                )   
+            }            
+        }
+        
+
+        
         const {data, term, filter} = this.state;
         // Происходит двойной фильтр. Первый аргумент в filterWroker,
         // это уже отфильтрованное состояние в функции searchEmp (первая
@@ -189,7 +216,11 @@ class App extends Component {
                 />       
                 <EmployersAddForm 
                 onAddWorker = {(e, newWorker) => {this.addWorker(e, newWorker)}}
-                />                    
+                /> 
+                <Wrapper render = {counter => (
+                    <Oleg counter = {counter}/>
+                )}/>
+ 
             </div>
         );
     }

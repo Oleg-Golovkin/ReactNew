@@ -1,4 +1,4 @@
-import React, { Component} from "react";
+import React, { Component, useState} from "react";
 
 import "./app.css";
 
@@ -151,9 +151,22 @@ class App extends Component {
 
     
     render(){
+        const Aa = () => {
+            const [years, setYears] = useState(1)
+            // const i = useState(1)
+            // i[0] === years
+            // i[1] === setYears
 
-         
-
+            function nextYears() {
+                setYears((years)=> years + 1)
+            }
+            return (
+                <div>   
+                    <button onClick={nextYears}>+++</button>
+                    <div>{years}</div>
+                </div>
+            )            
+        }
         
         const {data, term, filter} = this.state;
         // Происходит двойной фильтр. Первый аргумент в filterWroker,
@@ -194,6 +207,7 @@ class App extends Component {
                 <EmployersAddForm 
                 onAddWorker = {(e, newWorker) => {this.addWorker(e, newWorker)}}
                 />
+                <Aa/>
             </div>
         );
     }

@@ -4,7 +4,7 @@ import "./employers-list.css"
 
 const EmployersList = ({data, onDelete, toggleProp, onChangeSalary}) => {
     const elements = data.map((item) => {
-        const {id, ...itemProps} = item;       
+        const {id, ...itemProps} = item;
         
         return (
             <EmployersListItem

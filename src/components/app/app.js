@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect, useCallback} from "react";
-
+import React, { Component, useState, useEffect, useCallback, useMemo, useRef} from "react";
+import {Container} from "react-bootstrap"
 import "./app.css";
 
 import AppInfo from "../app-info/app-info"
@@ -151,47 +151,34 @@ class App extends Component {
 
     
     render(){
-        const Picture = () => {
-            const [number, setNumber] = useState(1)
+        const Form = () => {             
+            let mayRef = useRef(1); 
+            const [one, setOne] = useState("");
+            
+            useEffect(()=> {                
+                console.log(mayRef);
+            });
 
-            function changeNumber(){
-                setNumber((number) =>  number + 1)
+            function plusMayRef(i) {
+                mayRef.current = 1       
+                console.dir(mayRef.current);
             }
 
-            const getImages = useCallback(()=> {
-                console.log('useCallback');
-                return(
-                    [
-                        'https://avatars.mds.yandex.net/get-zen_doc/5221947/pub_6117bb937e37175eb6409d6b_6117bc4e6eab3f04dedc5031/scale_1200',
-                        'https://mobimg.b-cdn.net/v3/fetch/ec/ec1a200599b8bdbed492c7d3ee282d6e.jpeg?w=1200&r=0.5625'  
-                    ]
-                )
-            }, [])
-
             return (
-                <div>   
-                    <button onClick={changeNumber}>+++</button>
-                    <div>{number}</div>
-                    <Img getImages={getImages}/>
-                </div>
+                <Container>
+                    <form>
+                        <input onInput={(e)=> setOne(e.target.value)}                                
+                        ref={mayRef}
+                        /> 
+                        {/* <div onClick={()=> mayRef.current+1}>lkj;lj;</div>   */}
+                        <div onClick={()=> plusMayRef(3)}>fsdfsafsafsfs</div>            
+                    </form>
+                </Container>
             )
+            
         }
 
-        const Img = ({getImages}) => {
-            const [img, setImg] = useState([])
-            useEffect(()=> {
-                setImg(getImages())
-            }, [getImages])           
-
-            return(
-                <div>
-                    {img.map((item, i)=> {
-                    return <img key={i} src={item} alt=""/>
-                    })}
-                </div>
-            )
-
-        }
+        
         
         const {data, term, filter} = this.state;
         // Происходит двойной фильтр. Первый аргумент в filterWroker,
@@ -231,10 +218,7 @@ class App extends Component {
                 <EmployersAddForm 
                 onAddWorker = {(e, newWorker) => {this.addWorker(e, newWorker)}}
                 />
-                <Picture>
-
-                </Picture>
-
+                <Form/>
             </div>
         );
     }

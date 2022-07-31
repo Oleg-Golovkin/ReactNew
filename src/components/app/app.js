@@ -150,36 +150,7 @@ class App extends Component {
     }
 
     
-    render(){
-        const Form = () => {             
-            let mayRef = useRef(1); 
-            const [one, setOne] = useState("");
-            
-            useEffect(()=> {                
-                console.log(mayRef);
-            });
-
-            function plusMayRef(i) {
-                mayRef.current = 1       
-                console.dir(mayRef.current);
-            }
-
-            return (
-                <Container>
-                    <form>
-                        <input onInput={(e)=> setOne(e.target.value)}                                
-                        ref={mayRef}
-                        /> 
-                        {/* <div onClick={()=> mayRef.current+1}>lkj;lj;</div>   */}
-                        <div onClick={()=> plusMayRef(3)}>fsdfsafsafsfs</div>            
-                    </form>
-                </Container>
-            )
-            
-        }
-
-        
-        
+    render(){       
         const {data, term, filter} = this.state;
         // Происходит двойной фильтр. Первый аргумент в filterWroker,
         // это уже отфильтрованное состояние в функции searchEmp (первая

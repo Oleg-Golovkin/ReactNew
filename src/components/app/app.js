@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect, useCallback, useMemo, useRef} from "react";
-import {Container} from "react-bootstrap"
+import React, { Component, useState, useEffect, useCallback} from "react";
+
 import "./app.css";
 
 import AppInfo from "../app-info/app-info"
@@ -150,7 +150,50 @@ class App extends Component {
     }
 
     
-    render(){       
+    render(){
+        const Aa = () => {
+            const [years, setYears] = useState(1)
+            const [one, setOne] = useState(0)
+            
+            const getImages = useCallback(()=> {
+                console.log('callBack');
+                return(
+                    [
+                        'https://avatars.mds.yandex.net/get-zen_doc/5221947/pub_6117bb937e37175eb6409d6b_6117bc4e6eab3f04dedc5031/scale_1200',
+                        'https://mobimg.b-cdn.net/v3/fetch/ec/ec1a200599b8bdbed492c7d3ee282d6e.jpeg?w=1200&r=0.5625'
+                    ]
+                )
+            }, [])
+
+            function nextYears() {
+                setYears((years)=> years + 1)
+            }
+            return (
+                <div>   
+                    <button onClick={nextYears}>+++</button>
+                    <div>{years}</div>
+                    <Img getImages={getImages}/>
+                </div>
+            )            
+        }
+
+        const Img = ({getImages}) => {
+            const [pucture, setImg] = useEffect([]);
+            useEffect(() => {
+                setImg(getImages())  
+            }, [getImages])
+
+            return(
+                <div>
+                    {pucture.map((img, i)=> {
+                        return(
+                            <img key={i} src={img} alt="" />
+                        )
+                    })}
+                </div>
+            )
+        }
+        
         const {data, term, filter} = this.state;
         // Происходит двойной фильтр. Первый аргумент в filterWroker,
         // это уже отфильтрованное состояние в функции searchEmp (первая
@@ -189,7 +232,9 @@ class App extends Component {
                 <EmployersAddForm 
                 onAddWorker = {(e, newWorker) => {this.addWorker(e, newWorker)}}
                 />
-                <Form/>
+                <Aa>
+                    
+                </Aa>
             </div>
         );
     }
@@ -199,58 +244,3 @@ class App extends Component {
 
 export default App
 
-
-// const Aa = () => {
-//     const [years, setYears] = useState(1)
-//     // const [one, setOne] = useState(0)
-//     const images = useCallback(() => {
-//         return (
-//             [
-//                 'https://avatars.mds.yandex.net/get-zen_doc/5221947/pub_6117bb937e37175eb6409d6b_6117bc4e6eab3f04dedc5031/scale_1200',
-//                 'https://mobimg.b-cdn.net/v3/fetch/ec/ec1a200599b8bdbed492c7d3ee282d6e.jpeg?w=1200&r=0.5625'
-//             ]
-//         )
-//     })
-
-//     function nextYears() {
-//         setYears((years)=> years + 1)
-//     }
-//     return (
-//         <div>   
-//             <button onClick={nextYears}>+++</button>
-//             <div>{years}</div>
-//             {/* <Img getImages={getImages}/> */}
-//         </div>
-//     )            
-// }
-
-
-
-
-
-// const Img = ({getImages}) => {
-//     const [pucture, setImg] = useState([]);
-//     useEffect(() => {
-//         setImg(getImages())  
-//     }, [getImages])
-    
-//     return(
-//         <div>
-//             {pucture.map((img, i)=> {
-//                 return(
-//                     <img key={i} src={img} alt="" />
-//                 )
-//             })}
-//         </div>
-//     )
-// }
-
-    // const getImages = useCallback(()=> {
-    //     console.log('callBack');
-    //     return(
-    //         [
-    //             'https://avatars.mds.yandex.net/get-zen_doc/5221947/pub_6117bb937e37175eb6409d6b_6117bc4e6eab3f04dedc5031/scale_1200',
-    //             'https://mobimg.b-cdn.net/v3/fetch/ec/ec1a200599b8bdbed492c7d3ee282d6e.jpeg?w=1200&r=0.5625'
-    //         ]
-    //     )
-    // }, [])

@@ -22,7 +22,7 @@ class Form extends PureComponent{
         console.log('render');
         return (
             <Container>
-                <input value={this.props.mail}/>                           
+                <input value={this.props.mail.m}/>                           
             </Container>
         )
     }

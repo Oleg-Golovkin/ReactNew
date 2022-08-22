@@ -1,4 +1,4 @@
-import {useState, memo, PureComponent} from 'react';
+import {useState, memo, PureComponent, Component} from 'react';
 import {Container} from 'react-bootstrap';
 import './App.css';
 
@@ -16,8 +16,12 @@ import './App.css';
 //     )
 // }, comparisonProps)
 
-class Form extends PureComponent{
-    
+class Form extends Component{
+    shouldComponentUpdate(prevProps){
+        if(this.props.mail.m === prevProps.mail.m) {
+            return false
+        } return true;
+    }
     render(){
         console.log('render');
         return (

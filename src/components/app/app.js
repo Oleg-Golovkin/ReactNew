@@ -17,22 +17,23 @@ import './App.css';
 // }, comparisonProps)
 
 
-// Это значение по умолчанию?
-const textContent = createContext({
-    mail: "second@example.com" 
-})
-
+                  //   1
+const textContent = createContext(
+                //   1.1
+    {mail: "second@example.com"}
+    )
+            // 1.3
+const {Provider, Consumer} = textContent; 
 console.log(textContent);
 
-const {Provider, Consumer} = textContent; 
-
 const App = ()=> {
+                // 2
     const [data, setData] = useState({
         mail: "second@example.com",        
     });
 
     return (
-        //   Зачем сдесь пишем value?
+        // 3       3.1    3.2
         <Provider value={data}>
             <Form/>
             <button 
@@ -56,18 +57,12 @@ class Form extends Component{
 }
 
 class Input extends Component{
+    static contextType = textContent
+    
     render(){
+        console.log(textContent);
         return(
-            <Consumer>
-                {
-                    value=> {
-                        return(
-                            <input value={value.mail}/>
-                        )
-                        
-                    }
-                }            
-            </Consumer>
+            <input value={this.context.mail}/>
         )
     }
 }

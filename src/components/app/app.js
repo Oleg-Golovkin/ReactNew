@@ -1,4 +1,4 @@
-import {useState, memo, PureComponent, Component} from 'react';
+import {useState, createContext, Component} from 'react';
 import {Container} from 'react-bootstrap';
 import './App.css';
 
@@ -16,39 +16,62 @@ import './App.css';
 //     )
 // }, comparisonProps)
 
-class Form extends Component{
-    shouldComponentUpdate(prevProps){
-        if(this.props.mail.m === prevProps.mail.m) {
-            return false
-        } return true;
-    }
+
+// Это значение по умолчанию?
+const textContent = createContext({
+    mail: "second@example.com" 
+})
+
+console.log(textContent);
+
+const {Provider, Consumer} = textContent; 
+
+const App = ()=> {
+    const [data, setData] = useState({
+        mail: "second@example.com",        
+    });
+
+    return (
+        //   Зачем сдесь пишем value?
+        <Provider value={data}>
+            <Form/>
+            <button 
+                onClick={() => setData({
+                    mail: "example.com"
+                })}>
+                Click me
+            </button>
+        </Provider>
+    );
+}
+
+class Form extends Component{    
     render(){
-        console.log('render');
         return (
             <Container>
-                <input value={this.props.mail.m}/>                           
+                <Input/>
             </Container>
         )
     }
 }
 
-const App = ()=> {
-    const [data, setData] = useState({
-        mail: {
-            m: "second@example.com"},        
-    });
-
-    return (
-        <>
-            <Form mail={data.mail}/>
-            <button 
-                onClick={() => setData({
-                    mail: "second@example.com"
-                })}>
-                Click me
-            </button>
-        </>
-    );
+class Input extends Component{
+    render(){
+        return(
+            <Consumer>
+                {
+                    value=> {
+                        return(
+                            <input value={value.mail}/>
+                        )
+                        
+                    }
+                }            
+            </Consumer>
+        )
+    }
 }
+
+
 
 export default App;

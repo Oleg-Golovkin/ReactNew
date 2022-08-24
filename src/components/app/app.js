@@ -1,4 +1,4 @@
-import {useState, createContext, Component} from 'react';
+import {useState, createContext, Component, useContext} from 'react';
 import {Container} from 'react-bootstrap';
 import './App.css';
 
@@ -56,18 +56,13 @@ class Form extends Component{
     }
 }
 
-class Input extends Component{
-    static contextType = textContent
-    
-    render(){
-        console.log(textContent);
+const Input = ()=> {
+    const context = useContext(textContent)   
         return(
-            <input value={this.context.mail}/>
+            <input value={context.mail}/>
         )
-    }
+    
 }
-
-console.dir(Input);
 
 
 

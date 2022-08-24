@@ -67,6 +67,8 @@ class Input extends Component{
     }
 }
 
+console.dir(Input);
+
 
 
 export default App;

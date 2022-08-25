@@ -1,37 +1,28 @@
 
-import './App.css';
-import {useState} from 'react';
-import textContent from './textContent';
-import Form from './Form'
+import {useReducer} from "react";
 
-const {Provider} = textContent; 
+const App = () => {
+    const [years, dispatch] = useReducer(nextYears, {years: 0});
 
-const App = ()=> {
-    const [data, setData] = useState({
-        mail: "second@example.com",
-        changeTextContent: changeTextContent,        
-    });
-    function changeTextContent(){
-        setData({mail: "next"})
+    function nextYears(state, action) {
+        console.log(state);
+        switch (action.type) {
+            case "one": 
+                return {years: state.years + 1};
+            case "two": 
+                return {years: state.years + 2} 
+            case "three": 
+                return {years: state.years + 3} 
+        }
     }
     return (
-        <Provider value={data}>
-            <Form/>
-            <button 
-                onClick={() => setData({
-                    mail: "example.com",
-                    changeTextContent: changeTextContent,
-                })}>
-                Click me
-            </button>
-        </Provider>
-    );
+        <> 
+            <button onClick={()=> dispatch({type: "one"})}>one</button>
+            <button onClick={()=> dispatch({type: "two"})}>two</button>
+            <button onClick={()=> dispatch({type: "three"})}>three</button>
+            <div>{years.years}</div>
+        </>
+    )            
 }
 
-
-
-
-
-
-
-export default App;
+export default App

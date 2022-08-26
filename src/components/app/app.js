@@ -13,12 +13,19 @@ const App = () => {
                 return {years: state.years + 2} 
             case "three": 
                 return {years: state.years + 3} 
+            case "three": 
+                return {years: state.years + 3} 
         }
     }
     return (
         <> 
-            <button onClick={()=> dispatch({type: "one"})}>one</button>
-            <button onClick={()=> dispatch({type: "two"})}>two</button>
+            <button onClick={()=> dispatch({type: "one"})}>play</button>
+            <button onClick={
+                (e)=> dispatch(  
+                                      
+                    {play: e.target.textContent}                    
+                )
+        }>two</button>
             <button onClick={()=> dispatch({type: "three"})}>three</button>
             <div>{years.years}</div>
         </>

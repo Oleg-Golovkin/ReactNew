@@ -77,9 +77,12 @@ const SliderSecond = (props) => {
         </div>
     )
 }
+
+
 //Компоненты кладем в синтаксисе не как компоненты, а как фукнцию, вторую фукнцию не раскрываем
 const NewSliderFirst = withAllSlider(SliderFirst, getDataFromFirstFetch);
 const NewSliderSecond = withAllSlider(SliderSecond, getDataFromSecondFetch);
+
 
 function App() {
     return (

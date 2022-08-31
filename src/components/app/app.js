@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import {Container} from 'react-bootstrap';
 import { CSSTransition } from 'react-transition-group';
 import './App.css';
 
@@ -11,7 +10,8 @@ const Modal = (props) => {
         classNames="my-node">
             <div className="my-node">
                 <button 
-                    onClick={() => props.onClose(false)}>exit
+                    onClick={() => props.onClose(false)}>
+                        exit
                 </button>
             </div>
         </CSSTransition>
@@ -24,7 +24,8 @@ function App() {
         <>
             <Modal onClose={setShowModal} showModal = {showModal}/>
             <button 
-                onClick={() => setShowModal(true)}>Open Modal
+                onClick={() => setShowModal(true)}>
+                    Open Modal
             </button>
         </>
     );
